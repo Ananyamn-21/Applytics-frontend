@@ -1,0 +1,44 @@
+mat-card {
+    margin: 16px;
+  }
+  
+  .calendar-container {
+    height: 600px;
+  }
+  
+  .legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    justify-content: center;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+  
+    &.application {
+      background-color: #3f51b5;
+    }
+  
+    &.interview {
+      background-color: #ff9800;
+    }
+  }
+  
+  ::ng-deep .cal-month-view .cal-day-cell {
+    min-height: 60px;
+  }
+  
+  ::ng-deep .cal-event {
+    font-size: 12px;
+    padding: 2px 4px;
+    margin-bottom: 2px;
+  }

@@ -1,0 +1,27 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Application Calendar</mat-card-title>
+      <mat-card-subtitle>View your application and interview timeline</mat-card-subtitle>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <div class="calendar-container">
+        <mwl-calendar-month-view
+          [viewDate]="viewDate"
+          [events]="events"
+          [activeDayIsOpen]="true">
+        </mwl-calendar-month-view>
+      </div>
+  
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color application"></div>
+          <span>Application Submitted</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color interview"></div>
+          <span>Interview Scheduled</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
