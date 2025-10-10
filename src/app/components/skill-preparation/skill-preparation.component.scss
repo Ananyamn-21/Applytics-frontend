@@ -1,0 +1,206 @@
+.skill-prep-card {
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(80, 80, 120, 0.1);
+  padding: 16px;
+  margin: 20px auto;
+  max-width: 900px;
+}
+
+.skill-block {
+  width: 100%;
+}
+
+.skill-header {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skill-name {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.skill-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.progress-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.step-status-section {
+  display: flex;
+  gap: 16px;
+}
+
+.resource-link {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  button {
+    min-width: 80px;
+  }
+}
+
+.progress-slider {
+  min-width: 200px;
+}
+/* cleaned up stray styles */
+
+/* Loading spinner */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 30px;
+  color: #666;
+}
+
+.error-msg {
+  color: #e53935;
+  text-align: center;
+  font-weight: 500;
+  margin: 16px 0;
+}
+
+.empty-msg {
+  text-align: center;
+  color: var(--text-color);
+  padding: 20px;
+  font-style: italic;
+}
+
+/* Skill Item */
+.skill-item {
+  color: var(--text-color);
+
+  .skill-name {
+    color: var(--text-color);
+    font-weight: 500;
+  }
+
+  .resource-link {
+    color: var(--accent-color);
+    text-decoration: underline;
+  }
+
+  .mat-form-field {
+    color: var(--text-color);
+
+    input, textarea {
+      color: var(--text-color);
+    }
+  }
+}
+::ng-deep {
+  .mat-form-field-label {
+    color: var(--text-secondary);
+  }
+
+  .mat-input-element {
+    color: var(--text-color);
+  }
+
+  .mat-select-value-text {
+    color: var(--text-color);
+  }
+}
+.skill-item {
+  border-bottom: 1px solid #eaeaea;
+  padding: 16px 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Skill Container */
+.skill-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Header */
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .skill-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #2c2c2c;
+  }
+
+  .resource-link {
+    text-decoration: none;
+    color: #3f51b5;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Body */
+.skill-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Sections */
+.progress-section,
+.step-status-section,
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.progress-input {
+  width: 140px;
+}
+
+.progress-slider {
+  flex: 1;
+  min-width: 200px;
+}
+
+.step-field,
+.status-field {
+  width: 180px;
+}
+
+/* Action buttons */
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  button {
+    min-width: 100px;
+  }
+}
+
+mat-progress-spinner {
+  display: inline-block;
+}

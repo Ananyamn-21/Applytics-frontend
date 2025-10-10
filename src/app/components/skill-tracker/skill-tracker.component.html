@@ -5,32 +5,20 @@
     </mat-card-header>
   
     <mat-card-content>
-      <div class="progress-container">
-        <h3>Preparation Progress</h3>
-        <div class="progress-stats">
-          <span>{{preparedCount}} / {{totalCount}} skills prepared</span>
-          <span>{{progressValue | number:'1.0-0'}}%</span>
-        </div>
-        <mat-progress-bar 
-          mode="determinate" 
-          [value]="progressValue"
-          color="primary">
-        </mat-progress-bar>
+      <div class="jobs-grid">
+        <mat-card *ngFor="let job of jobs" class="job-card">
+          <mat-card-header>
+            <mat-card-title>{{job.companyName}}</mat-card-title>
+            <mat-card-subtitle>{{job.role}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div>Date Applied: {{job.dateApplied | date}}</div>
+            <div>Status: <mat-chip [color]="getStatusColor(job.status)" selected>{{job.status}}</mat-chip></div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button color="primary" (click)="goToSkillPreparation(job.id)">Open Skills</button>
+          </mat-card-actions>
+        </mat-card>
       </div>
-  
-      <mat-list>
-        <mat-list-item *ngFor="let skill of skills">
-          <mat-icon matListItemIcon>{{getSkillIcon(skill.name)}}</mat-icon>
-          <div matListItemTitle>{{skill.name}}</div>
-          <div matListItemLine *ngIf="skill.notes">{{skill.notes}}</div>
-          
-          <button 
-            mat-icon-button 
-            [color]="skill.isPrepared ? 'primary' : ''"
-            (click)="togglePreparation(skill)">
-            <mat-icon>{{skill.isPrepared ? 'check_circle' : 'radio_button_unchecked'}}</mat-icon>
-          </button>
-        </mat-list-item>
-      </mat-list>
     </mat-card-content>
   </mat-card>

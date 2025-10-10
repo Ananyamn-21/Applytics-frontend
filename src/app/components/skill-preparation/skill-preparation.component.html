@@ -1,0 +1,128 @@
+<div class="skill-prep-wrapper">
+
+ 
+
+
+
+<mat-card class="skill-prep-card">
+  <mat-card-header>
+    <mat-card-title>Skill Preparation</mat-card-title>
+    <mat-card-subtitle>
+      Track your progress for each skill required for this job.
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <!-- Loading Spinner -->
+    <div *ngIf="loading" class="loading-container">
+      <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+      <p>Loading skills...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+
+    <!-- Skill List -->
+    <mat-list *ngIf="!loading && !errorMessage && skills.length">
+      <mat-list-item
+        *ngFor="let skill of skills; let i = index"
+        class="skill-item"
+      >
+        <div class="skill-block">
+          <!-- Header -->
+          <div class="skill-header">
+            <span class="skill-name">{{ skill.skillName }}</span>
+            <a
+              *ngIf="skill.resourceUrl"
+              [href]="skill.resourceUrl"
+              target="_blank"
+              class="resource-link"
+            >
+              View Resource
+            </a>
+          </div>
+
+          <!-- Body -->
+          <div class="skill-body">
+            <!-- Progress Section -->
+            <div class="progress-section">
+              <mat-form-field appearance="outline" class="progress-input">
+                <mat-label>Progress (%)</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  min="0"
+                  max="100"
+                  [(ngModel)]="skill.progress"
+                  (change)="onNumericChange(skill, $event)"
+                />
+              </mat-form-field>
+
+              <mat-slider min="0" max="100" step="1" class="progress-slider">
+                <input
+                  matSliderThumb
+                  [(ngModel)]="skill.progress"
+                  (input)="onNumericChange(skill, $event)"
+                />
+              </mat-slider>
+            </div>
+
+            <!-- Step & Status -->
+            <div class="step-status-section">
+              <mat-form-field appearance="outline" class="step-field">
+                <mat-label>Step</mat-label>
+                <mat-select
+                  [(ngModel)]="skill._step"
+                  [disabled]="isSaving(skill)"
+                
+                >
+                  <mat-option [value]="1">Step 1</mat-option>
+                  <mat-option [value]="2">Step 2</mat-option>
+                  <mat-option [value]="3">Step 3</mat-option>
+                  <mat-option [value]="4">Step 4</mat-option>
+                  <mat-option [value]="5">Step 5</mat-option>
+                  <mat-option [value]="10">Step 10</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="status-field">
+                <mat-label>Status</mat-label>
+                <mat-select
+                  [(ngModel)]="skill.status"
+                  (selectionChange)="updateSkill(skill)"
+                  [disabled]="isSaving(skill)"
+                >
+                  <mat-option value="in_progress">In Progress</mat-option>
+                  <mat-option value="completed">Completed</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- Action Row -->
+            <div class="action-row">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="updateSkill(skill)"
+                [disabled]="isSaving(skill)"
+              >
+                Save
+              </button>
+              <mat-progress-spinner
+                *ngIf="isSaving(skill)"
+                diameter="28"
+                mode="indeterminate"
+              ></mat-progress-spinner>
+            </div>
+          </div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+
+    <!-- No Data -->
+    <div *ngIf="!loading && !errorMessage && !skills.length" class="empty-msg">
+      No skills found for this job.
+    </div>
+  </mat-card-content>
+</mat-card>
+</div>

@@ -58,59 +58,36 @@ export class AuthService {
   }
 
   login(credentials: LoginCredentials): Observable<{ success: boolean; message: string; user?: User }> {
-    // For testing purposes, if backend is not available, use mock login
-    const mockLogin = () => {
-      const user: User = {
-        id: '1',
-        username: credentials.username,
-        name: credentials.username,
-        createdAt: new Date()
-      };
-      
-      if (isPlatformBrowser(this.platformId)) {
-        localStorage.setItem('token', 'mock-token-' + Date.now());
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-      }
-      
-      return of({ success: true, message: 'Login successful!', user: user });
-    };
-
     return this.http.post<any>(`${this.apiUrl}/login`, credentials).pipe(
       tap(response => {
-        console.log('Login response:', response);
-        if (response && response.token && isPlatformBrowser(this.platformId)) {
+        if (response && response.token && response.status === 'success' && isPlatformBrowser(this.platformId)) {
           localStorage.setItem('token', response.token);
-          // Create user object from credentials if not provided by backend
-          const user: User = response.user || {
+          const user: User = {
             id: '1',
             username: credentials.username,
             name: credentials.username,
             createdAt: new Date()
           };
-          // Store user info
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
-          console.log('User set:', user);
         }
       }),
       map(response => {
-        if (response && response.token) {
-          const user: User = response.user || {
+        if (response && response.status === 'success' && response.token) {
+          const user: User = {
             id: '1',
             username: credentials.username,
             name: credentials.username,
             createdAt: new Date()
           };
-          return { success: true, message: 'Login successful!', user: user };
+          return { success: true, message: response.message || 'Login successful!', user };
         } else {
-          return { success: false, message: 'Login failed.' };
+          return { success: false, message: response.message || 'Invalid credentials' };
         }
       }),
-      // Fallback to mock login if HTTP request fails
       catchError(error => {
-        console.log('Backend not available, using mock login:', error);
-        return mockLogin();
+        const message = error?.error?.message || error?.error || error?.message || 'Login failed. Please try again.';
+        return of({ success: false, message });
       })
     );
   }
