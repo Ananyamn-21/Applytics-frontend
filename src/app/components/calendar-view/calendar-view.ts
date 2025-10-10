@@ -34,7 +34,7 @@ export class CalendarViewComponent {
   loadEvents(): void {
     this.jobApplicationService.getApplications().subscribe((applications: JobApplication[]) => {
       const applicationEvents = applications.map((app: JobApplication) => ({
-        start: startOfDay(new Date(app.applicationDate)),
+        start: startOfDay(new Date(app.dateApplied)),
         title: `Applied: ${app.companyName} - ${app.role}`,
         color: { primary: '#3f51b5', secondary: '#D1E8FF' }
       }));

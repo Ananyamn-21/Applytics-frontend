@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { SkillService } from '../../services/skill';
 import { Skill, SkillResource } from '../../models/skill.model';
@@ -23,29 +24,33 @@ import { Skill, SkillResource } from '../../models/skill.model';
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
   ],
   templateUrl: './preparation-resources.component.html',
   styleUrls: ['./preparation-resources.component.scss']
 })
 export class PreparationResourcesComponent {
-  @Input() skillName: string = '';
+  @Input() skillId!: number;
+  skill?: Skill;
   resources: SkillResource[] = [];
   isPrepared: boolean = false;
   notes: string = '';
   newResourceUrl: string = '';
   newResourceTitle: string = '';
+  isSaving: boolean = false;
 
-  constructor(private skillService: SkillService) {}
+  constructor(private skillService: SkillService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.loadResources();
   }
 
   loadResources(): void {
-    this.skillService.getSkill(this.skillName).subscribe({
+    this.skillService.getSkill(this.skillId).subscribe({
       next: (skill) => {
         if (skill) {
+          this.skill = skill;
           this.resources = skill.resources;
           this.isPrepared = skill.isPrepared;
           this.notes = skill.notes || '';
@@ -56,16 +61,50 @@ export class PreparationResourcesComponent {
   }
 
   togglePreparation(): void {
+    if (!this.skillId) {
+      console.warn('No skillId provided');
+      return;
+    }
+
+    const previous = this.isPrepared;
     this.isPrepared = !this.isPrepared;
-    this.savePreparationStatus();
+    this.isSaving = true;
+
+    this.savePreparationStatus().subscribe({
+      next: () => {
+        this.isSaving = false;
+        this.snackBar.open('Preparation status saved', 'OK', { duration: 2000 });
+      },
+      error: (err: any) => {
+        console.error('Failed to update preparation status', err);
+        this.isPrepared = previous; // revert
+        this.isSaving = false;
+        this.snackBar.open('Failed to save status', 'Dismiss', { duration: 3000 });
+      }
+    });
   }
 
-  savePreparationStatus(): void {
-    this.skillService.updateSkill(this.skillName, {
+  savePreparationStatus() {
+    // return observable so callers can handle success/error
+    return this.skillService.updateSkill(this.skillId, {
       isPrepared: this.isPrepared,
       notes: this.notes
-    }).subscribe({
-      error: (err: any) => console.error('Failed to update skill', err)
+    });
+  }
+
+  onNotesBlur(): void {
+    if (!this.skillId) return;
+    this.isSaving = true;
+    this.savePreparationStatus().subscribe({
+      next: () => {
+        this.isSaving = false;
+        this.snackBar.open('Notes saved', 'OK', { duration: 2000 });
+      },
+      error: (err: any) => {
+        console.error('Failed to save notes', err);
+        this.isSaving = false;
+        this.snackBar.open('Failed to save notes', 'Dismiss', { duration: 3000 });
+      }
     });
   }
 
@@ -77,7 +116,7 @@ export class PreparationResourcesComponent {
         type: this.determineResourceType(this.newResourceUrl)
       };
 
-      this.skillService.addResourceToSkill(this.skillName, newResource).subscribe({
+  this.skillService.addResourceToSkill(this.skillId, newResource).subscribe({
         next: (skill) => {
           if (skill) {
             this.resources = skill.resources;

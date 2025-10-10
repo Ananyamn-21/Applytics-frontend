@@ -1,0 +1,50 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Add Interview Evaluation</mat-card-title>
+    <mat-card-subtitle>Record your interview experience</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Job</mat-label>
+          <mat-select formControlName="jobId" required>
+            <mat-option *ngFor="let job of jobs" [value]="job.id">{{ job.companyName || $any(job).company }} - {{ job.role }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Preparation Score</mat-label>
+          <input matInput type="number" formControlName="preparationScore" min="0" max="10" required>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Difficulty</mat-label>
+          <input matInput type="number" formControlName="difficulty" min="0" max="10" required>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Questions Asked</mat-label>
+          <textarea matInput formControlName="questionsAsked" required></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Concepts Missed</mat-label>
+          <textarea matInput formControlName="conceptsMissed"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row submit-row">
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

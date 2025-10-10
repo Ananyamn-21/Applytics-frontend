@@ -41,19 +41,19 @@ export class ApplicationFormComponent implements OnInit {
     this.applicationForm = this.fb.group({
       companyName: ['', Validators.required],
       role: ['', Validators.required],
-      jobDescriptionUrl: ['', [Validators.required, Validators.pattern('https?://.+')]],
-      applicationDate: [new Date(), Validators.required],
-      status: ['Applied', Validators.required],
+      jdUrl: ['', [Validators.required, Validators.pattern('https?://.+')]],
+      jdText: [''],
+      dateApplied: [new Date().toISOString().slice(0, 10), Validators.required],
+      status: ['applied', Validators.required],
       notes: ['']
     });
 
     if (this.application) {
-      // Convert string date to Date object if needed
       const applicationData = {
         ...this.application,
-        applicationDate: typeof this.application.applicationDate === 'string' 
-          ? new Date(this.application.applicationDate) 
-          : this.application.applicationDate
+        dateApplied: typeof this.application.dateApplied === 'string'
+          ? this.application.dateApplied
+          : new Date(this.application.dateApplied).toISOString().slice(0, 10)
       };
       this.applicationForm.patchValue(applicationData);
     }
@@ -65,9 +65,10 @@ export class ApplicationFormComponent implements OnInit {
       const application: Partial<JobApplication> = {
         companyName: formValue.companyName || '',
         role: formValue.role || '',
-        jobDescriptionUrl: formValue.jobDescriptionUrl || '',
-        applicationDate: formValue.applicationDate || new Date(),
-        status: formValue.status || 'Applied',
+        jdUrl: formValue.jdUrl || '',
+        jdText: formValue.jdText || '',
+        dateApplied: formValue.dateApplied || new Date().toISOString().slice(0, 10),
+        status: formValue.status || 'applied',
         notes: formValue.notes
       };
 

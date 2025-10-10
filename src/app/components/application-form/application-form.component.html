@@ -23,18 +23,23 @@
   
         <mat-form-field appearance="fill">
           <mat-label>Job Description URL</mat-label>
-          <input matInput formControlName="jobDescriptionUrl" required>
-          <mat-error *ngIf="applicationForm.get('jobDescriptionUrl')?.hasError('required')">
+          <input matInput formControlName="jdUrl" required>
+          <mat-error *ngIf="applicationForm.get('jdUrl')?.hasError('required')">
             URL is required
           </mat-error>
-          <mat-error *ngIf="applicationForm.get('jobDescriptionUrl')?.hasError('pattern')">
+          <mat-error *ngIf="applicationForm.get('jdUrl')?.hasError('pattern')">
             Please enter a valid URL
           </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Job Description Text</mat-label>
+          <textarea matInput formControlName="jdText" rows="4" placeholder="Paste or write job description here"></textarea>
         </mat-form-field>
   
         <mat-form-field appearance="fill">
           <mat-label>Application Date</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="applicationDate" required>
+          <input matInput [matDatepicker]="picker" formControlName="dateApplied" required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>

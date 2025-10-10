@@ -1,12 +1,13 @@
 export interface Skill {
-    name: string;
-    isPrepared: boolean;
-    notes?: string;
-    resources: SkillResource[];
-    hoursSpent?: number;
-    createdAt?: Date;
-    updatedAt?: Date;
-  }
+  id?: number;
+  name: string;
+  isPrepared: boolean;
+  notes?: string;
+  resources: SkillResource[];
+  hoursSpent?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
   
   export interface SkillResource {
     title: string;

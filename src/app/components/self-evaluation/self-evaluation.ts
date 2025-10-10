@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -17,7 +18,9 @@ import { EvaluationService } from '../../services/evaluation';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     MatInputModule,
+    MatFormFieldModule,
     MatButtonModule,
     MatSelectModule,
     MatDatepickerModule,
@@ -40,15 +43,15 @@ export class SelfEvaluationComponent implements OnInit {
 
   ngOnInit(): void {
     this.evaluationForm = this.fb.group({
-      interviewDate: [new Date(), Validators.required],
-      company: ['', Validators.required],
-      role: ['', Validators.required],
-      questions: ['', Validators.required],
-      conceptsMissed: [''],
-      difficulty: ['Medium', Validators.required],
-      preparationScore: [3, [Validators.min(1), Validators.max(5)]],
-      notes: ['']
-    });
+    interviewDate: [new Date(), Validators.required],
+    company: ['', Validators.required],
+    role: ['', Validators.required],
+    questions: ['', Validators.required],
+    conceptsMissed: [''],
+    difficulty: ['Medium', Validators.required],
+    preparationScore: [3, [Validators.min(1), Validators.max(5)]],
+    notes: ['']
+  });
   }
 
   onSubmit(): void {

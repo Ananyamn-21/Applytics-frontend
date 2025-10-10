@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Evaluation } from '../models/evaluation.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EvaluationService {
+  private apiUrl = `${environment.API_URL}/evaluations`;
   private evaluations: Evaluation[] = [
     {
       id: '1',
@@ -36,24 +39,21 @@ export class EvaluationService {
   ];
 
   getEvaluations(): Observable<Evaluation[]> {
-    return of(this.evaluations);
+    return this.http.get<Evaluation[]>(this.apiUrl);
   }
 
-  getEvaluation(id: string): Observable<Evaluation | undefined> {
-    const evaluation = this.evaluations.find(e => e.id === id);
-    return of(evaluation);
+
+  addEvaluation(evaluation: Omit<Evaluation, 'id' | 'createdAt' | 'updatedAt'>): Observable<Evaluation> {
+    return this.http.post<Evaluation>(this.apiUrl, evaluation);
   }
 
-  addEvaluation(evaluation: Omit<Evaluation, 'id'>): Observable<Evaluation> {
-    const newEvaluation: Evaluation = {
-      ...evaluation,
-      id: Date.now().toString(),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-    this.evaluations.push(newEvaluation);
-    return of(newEvaluation);
+  constructor(private http: HttpClient) {}
+
+  getEvaluation(id: string): Observable<Evaluation> {
+    return this.http.get<Evaluation>(`${this.apiUrl}/${id}`);
   }
+
+  // Removed duplicate addEvaluation
 
   updateEvaluation(id: string, evaluation: Partial<Evaluation>): Observable<Evaluation> {
     const index = this.evaluations.findIndex(e => e.id === id);

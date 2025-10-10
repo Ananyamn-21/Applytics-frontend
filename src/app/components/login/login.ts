@@ -28,7 +28,7 @@ import { AuthService, LoginCredentials } from '../../services/auth.service';
     <div class="login-container">
       <mat-card class="login-card">
         <mat-card-header>
-          <mat-card-title>Login to Interview Tracker</mat-card-title>
+          <mat-card-title>Login to Applytics</mat-card-title>
           <mat-card-subtitle>Welcome back! Please sign in to continue.</mat-card-subtitle>
         </mat-card-header>
 
@@ -278,7 +278,7 @@ export class LoginComponent implements OnInit {
         },
         error: (error) => {
           this.isLoading = false;
-          this.errorMessage = 'Login failed. Please try again.';
+          this.errorMessage = error?.error || error?.message || 'Login failed. Please try again.';
         }
       });
     }

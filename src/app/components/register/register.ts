@@ -29,7 +29,7 @@ import { AuthService, RegisterCredentials } from '../../services/auth.service';
       <mat-card class="register-card">
         <mat-card-header>
           <mat-card-title>Create Account</mat-card-title>
-          <mat-card-subtitle>Join Interview Tracker to start managing your job applications</mat-card-subtitle>
+          <mat-card-subtitle>Join Applytics to start managing your job applications</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>

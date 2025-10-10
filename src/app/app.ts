@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,22 +8,30 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatChipsModule } from '@angular/material/chips';
 import { AuthService } from './services/auth.service';
+import { MatSliderModule } from '@angular/material/slider';
+
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
+  RouterLink,
+  RouterLinkActive,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatChipsModule,
+    MatSliderModule
   ],
   template: `
     <!-- Show navigation only when authenticated -->
@@ -34,7 +43,7 @@ import { AuthService } from './services/auth.service';
         <div class="toolbar-content">
           <div class="app-title">
             <mat-icon class="title-icon">work</mat-icon>
-            <span>Interview Tracker</span>
+            <span>Applytics</span>
           </div>
           <div class="user-info">
             <span class="welcome-text">Welcome, {{ getCurrentUserName() }}</span>
@@ -47,11 +56,7 @@ import { AuthService } from './services/auth.service';
 
       <mat-sidenav-container class="sidenav-container">
         <mat-sidenav #sidenav mode="side" opened class="app-sidenav">
-          <div class="sidenav-header">
-            <mat-icon class="sidenav-icon">dashboard</mat-icon>
-            <span class="sidenav-title">Navigation</span>
-          </div>
-          
+        
           <mat-nav-list class="nav-list">
             <a mat-list-item routerLink="/dashboard" routerLinkActive="active" class="nav-item">
               <mat-icon class="nav-icon">dashboard</mat-icon>
@@ -78,7 +83,7 @@ import { AuthService } from './services/auth.service';
               <span class="nav-text">Skills</span>
             </a>
             
-            <a mat-list-item routerLink="/evaluations" routerLinkActive="active" class="nav-item">
+            <a mat-list-item routerLink="/evaluation-form" routerLinkActive="active" class="nav-item">
               <mat-icon class="nav-icon">assessment</mat-icon>
               <span class="nav-text">Evaluations</span>
             </a>
@@ -287,8 +292,15 @@ export class App {
 
   constructor(
     public authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdRef: ChangeDetectorRef
   ) {}
+  
+  ngAfterViewInit() {
+    this.authService.currentUser$.subscribe(() => {
+      this.cdRef.detectChanges();
+    });
+  }
 
   logout(): void {
     this.authService.logout();

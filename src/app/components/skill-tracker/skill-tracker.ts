@@ -5,49 +5,57 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { SkillService } from '../../services/skill';
-import { Skill } from '../../models/skill.model';
+import { MatChipsModule } from '@angular/material/chips';
+import { JobApplicationService } from '../../services/job-application';
+import { JobApplication } from '../../models/job-application.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-skill-tracker',
   standalone: true,
   imports: [
     CommonModule,
-    MatCardModule,
-    MatProgressBarModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule
+  MatCardModule,
+  MatProgressBarModule,
+  MatListModule,
+  MatIconModule,
+  MatButtonModule,
+  MatChipsModule
   ],
   templateUrl: './skill-tracker.component.html',
   styleUrls: ['./skill-tracker.component.scss']
 })
 export class SkillTrackerComponent {
-  skills: Skill[] = [];
-  preparedCount = 0;
-  totalCount = 0;
-  progressValue = 0;
+  jobs: JobApplication[] = [];
 
-  constructor(private skillService: SkillService) {}
+  constructor(
+    private jobApplicationService: JobApplicationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.loadSkills();
+    this.loadJobs();
   }
 
-  loadSkills(): void {
-    this.skillService.getSkills().subscribe((skills: Skill[]) => {
-      this.skills = skills;
-      this.totalCount = skills.length;
-      this.preparedCount = skills.filter((s: Skill) => s.isPrepared).length;
-      this.progressValue = (this.preparedCount / this.totalCount) * 100;
+  loadJobs(): void {
+    this.jobApplicationService.getApplications().subscribe((apps: JobApplication[]) => {
+      this.jobs = apps;
     });
   }
 
-  togglePreparation(skill: Skill): void {
-    skill.isPrepared = !skill.isPrepared;
-    this.skillService.updateSkill(skill.name, { isPrepared: skill.isPrepared }).subscribe(() => {
-      this.loadSkills();
-    });
+  goToSkillPreparation(jobId?: string): void {
+    if (!jobId) return;
+    this.router.navigate(['/skills/job', jobId]);
+  }
+
+  getStatusColor(status: string): string {
+    switch (status) {
+      case 'applied': return 'primary';
+      case 'interview': return 'accent';
+      case 'selected': return 'success';
+      case 'rejected': return 'warn';
+      default: return '';
+    }
   }
 
   getSkillIcon(skillName: string): string {

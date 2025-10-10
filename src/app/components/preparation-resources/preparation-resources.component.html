@@ -1,20 +1,20 @@
 <mat-card>
     <mat-card-header>
-      <mat-card-title>Preparation Resources: {{skillName}}</mat-card-title>
+  <mat-card-title>Preparation Resources: {{skill?.name || skillId}}</mat-card-title>
       <mat-card-subtitle>Curated learning materials for this skill</mat-card-subtitle>
     </mat-card-header>
   
     <mat-card-content>
       <div class="preparation-status">
-        <mat-checkbox [(ngModel)]="isPrepared" (change)="togglePreparation()">
+        <mat-checkbox [(ngModel)]="isPrepared" (change)="togglePreparation()" [disabled]="isSaving">
           Mark as prepared
         </mat-checkbox>
         
         <mat-form-field appearance="fill" class="notes-field">
           <mat-label>Personal Notes</mat-label>
           <textarea matInput [(ngModel)]="notes" 
-                    (blur)="savePreparationStatus()"
-                    rows="2"></textarea>
+                    (blur)="onNotesBlur()"
+                    rows="2" [disabled]="isSaving"></textarea>
         </mat-form-field>
       </div>
   
