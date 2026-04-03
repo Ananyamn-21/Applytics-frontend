@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EarlyEdge | AI Job Hunting Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap');
+
+        :root {
+            --navy: #171e19;
+            --sage: #b7c6c2;
+            --taupe: #9f8d8b;
+            --cyan: #d5f4f9;
+            --soft-blue: #bbe2f5;
+            --charcoal: #302b2f;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--navy);
+            color: white;
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+
+        .font-anton {
+            font-family: 'Anton', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .text-outline {
+            -webkit-text-stroke: 1px var(--sage);
+            color: transparent;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        .animate-float {
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .custom-transition {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-difference {
+            mix-blend-mode: difference;
+        }
+
+        .pricing-card {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .step-line {
+            height: 1px;
+            background: linear-gradient(to right, var(--sage), transparent);
+            width: 100%;
+        }
+    </style>
+    <style>
+        sd-component {
+            display: block;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.js" defer init></script>
+</head>
+
+<body>
+    <div class="min-h-screen relative">
+
+        <!-- Navigation Component -->
+        <!-- component: Navigation (b03cc562-3de9-4929-86fb-17ade01cef79) -->
+        <div
+            v-scope="{ ...{&quot;activeItem&quot;:&quot;&quot;,&quot;logoHref&quot;:&quot;https://draft-10eea64e-65fd-459d-abfc-3b3510512c91.preview.superdesign.dev&quot;,&quot;workHref&quot;:&quot;https://draft-01bddedf-efad-4bbf-b0bb-3d6d21f2ed9f.preview.superdesign.dev&quot;,&quot;aboutHref&quot;:&quot;https://draft-a7ee9b54-f91e-4aa4-9f9f-a3b33cfea024.preview.superdesign.dev&quot;,&quot;servicesHref&quot;:&quot;https://draft-f557f8cd-08cf-40ca-8dbb-0891944c99d0.preview.superdesign.dev&quot;,&quot;contactHref&quot;:&quot;https://draft-8e383e35-4787-4efa-8310-00f5bafd5e93.preview.superdesign.dev&quot;}, $emit() {} }">
+            <nav
+                class="fixed top-0 left-0 w-full z-[100] px-8 md:px-12 py-8 flex justify-between items-center mix-blend-difference">
+                <a :href="logoHref" style="font-family: 'Anton', sans-serif; text-transform: uppercase;"
+                    class="text-2xl tracking-widest text-white">STUDIO.RARE</a>
+
+                <div class="hidden md:flex items-center gap-12">
+                    <a :href="workHref"
+                        class="text-[12px] uppercase tracking-[0.2em] font-semibold text-white transition-opacity"
+                        :class="{ 'opacity-100': activeItem === 'work', 'opacity-60': activeItem !== 'work' }">
+                        Work
+                    </a>
+                    <a :href="aboutHref"
+                        class="text-[12px] uppercase tracking-[0.2em] font-semibold text-white transition-opacity"
+                        :class="{ 'opacity-100': activeItem === 'about', 'opacity-60': activeItem !== 'about' }">
+                        About
+                    </a>
+                    <a :href="servicesHref"
+                        class="text-[12px] uppercase tracking-[0.2em] font-semibold text-white transition-opacity"
+                        :class="{ 'opacity-100': activeItem === 'services', 'opacity-60': activeItem !== 'services' }">
+                        Services
+                    </a>
+                </div>
+
+                <a :href="contactHref"
+                    class="px-8 py-3 border border-white/20 hover:bg-white hover:text-[#171e19] transition-colors text-[12px] uppercase tracking-widest font-semibold text-white">
+                    Get in Touch
+                </a>
+            </nav>
+        </div>
+        <!-- /component: Navigation (b03cc562-3de9-4929-86fb-17ade01cef79) -->
+
+        <!-- Hero Section -->
+        <section class="relative h-screen flex flex-col justify-center px-8 md:px-12 bg-[#171e19] overflow-hidden">
+            <div
+                class="absolute top-1/4 left-1/4 w-[384px] h-[384px] bg-[#b7c6c2] rounded-full blur-[120px] opacity-20 animate-float">
+            </div>
+            <div
+                class="absolute bottom-1/4 right-1/4 w-[384px] h-[384px] bg-[#d5f4f9] rounded-full blur-[120px] opacity-20 animate-float-delayed">
+            </div>
+
+            <div class="relative z-10">
+                <h1 class="font-anton text-[12vw] leading-[0.85] tracking-tighter">
+                    YOUR AI JOB HUNTER<br>
+                    <span class="text-outline">NEVER</span> SLEEPS
+                </h1>
+                <p class="mt-8 font-anton text-2xl md:text-3xl text-[#b7c6c2] tracking-wider">
+                    THE EARLY EDGE FOR EARLY CANDIDATES
+                </p>
+            </div>
+
+            <div class="absolute bottom-12 left-8 md:left-12 right-8 md:right-12 flex justify-between items-end">
+                <div class="max-w-md text-[10px] md:text-xs uppercase tracking-[0.3em] text-[#9f8d8b] leading-relaxed">
+                    APPLIED TO 47 JOBS THIS WEEK • SECURED 3 INTERVIEWS • ZERO EFFORT REQUIRED • RUNS 24/7
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <span class="text-[10px] uppercase tracking-widest text-white/40">Explore</span>
+                    <div
+                        class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center animate-bounce">
+                        <iconify-icon icon="lucide:arrow-down" class="text-white"></iconify-icon>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Propositions Section -->
+        <section id="why-us" class="bg-white py-32 md:py-48 px-8 md:px-24">
+            <div class="mb-32">
+                <h2 class="font-anton text-8xl md:text-9xl text-[#171e19] tracking-tighter reveal">WHY EARLYEDGE</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal">
+                <!-- Card 1 -->
+                <div class="group bg-[#fafafa] p-10 border border-gray-100 hover:bg-[#171e19] custom-transition">
+                    <div
+                        class="w-12 h-12 mb-8 bg-[#171e19] group-hover:bg-[#b7c6c2] custom-transition flex items-center justify-center">
+                        <iconify-icon icon="lucide:clock"
+                            class="text-white group-hover:text-[#171e19] text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-anton text-2xl mb-4 group-hover:text-white text-[#171e19]">24/7 AUTOMATION</h3>
+                    <p class="text-[#9f8d8b] text-sm leading-relaxed group-hover:text-white/60">
+                        Our agents monitor job boards every minute of the day. We never sleep, so you never miss an
+                        opportunity.
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div
+                    class="group bg-[#fafafa] p-10 border border-gray-100 hover:bg-[#171e19] custom-transition mt-8 md:mt-0">
+                    <div
+                        class="w-12 h-12 mb-8 bg-[#171e19] group-hover:bg-[#b7c6c2] custom-transition flex items-center justify-center">
+                        <iconify-icon icon="lucide:zap"
+                            class="text-white group-hover:text-[#171e19] text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-anton text-2xl mb-4 group-hover:text-white text-[#171e19]">EARLY APPLICANT EDGE</h3>
+                    <p class="text-[#9f8d8b] text-sm leading-relaxed group-hover:text-white/60">
+                        Be in the first 10 applicants. EarlyEdge applies within seconds of a job posting appearing.
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div
+                    class="group bg-[#fafafa] p-10 border border-gray-100 hover:bg-[#171e19] custom-transition mt-8 lg:mt-0">
+                    <div
+                        class="w-12 h-12 mb-8 bg-[#171e19] group-hover:bg-[#b7c6c2] custom-transition flex items-center justify-center">
+                        <iconify-icon icon="lucide:file-text"
+                            class="text-white group-hover:text-[#171e19] text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-anton text-2xl mb-4 group-hover:text-white text-[#171e19]">TAILORED RESUMES</h3>
+                    <p class="text-[#9f8d8b] text-sm leading-relaxed group-hover:text-white/60">
+                        AI generates a customized resume for every single job based on its specific requirements.
+                    </p>
+                </div>
+                <!-- Card 4 -->
+                <div
+                    class="group bg-[#fafafa] p-10 border border-gray-100 hover:bg-[#171e19] custom-transition mt-8 lg:mt-0">
+                    <div
+                        class="w-12 h-12 mb-8 bg-[#171e19] group-hover:bg-[#b7c6c2] custom-transition flex items-center justify-center">
+                        <iconify-icon icon="lucide:filter"
+                            class="text-white group-hover:text-[#171e19] text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-anton text-2xl mb-4 group-hover:text-white text-[#171e19]">SMART FILTERING</h3>
+                    <p class="text-[#9f8d8b] text-sm leading-relaxed group-hover:text-white/60">
+                        Only match with roles that align with your specific skills, location, and salary preferences.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="bg-[#171e19] py-32 md:py-64 px-8 md:px-24 overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24">
+                <div class="reveal">
+                    <h2 class="font-anton text-7xl md:text-8xl leading-none text-white mb-12">HOW IT<br>WORKS.</h2>
+                    <p class="text-[#9f8d8b] text-xl max-w-lg mb-16">
+                        Setting up your automated job hunt takes less than 5 minutes. Once configured, our AI handles
+                        the rest while you sleep.
+                    </p>
+                    <div class="space-y-12">
+                        <div class="flex items-start gap-8">
+                            <div
+                                class="w-10 h-10 rounded-full bg-[#b7c6c2] flex-shrink-0 flex items-center justify-center font-anton text-[#171e19]">
+                                01</div>
+                            <div>
+                                <h4 class="font-anton text-2xl text-white mb-2">CONNECT & SETUP</h4>
+                                <p class="text-[#9f8d8b] text-sm uppercase tracking-widest">Register and add your base
+                                    skills and preferences.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-8">
+                            <div
+                                class="w-10 h-10 rounded-full bg-[#b7c6c2] flex-shrink-0 flex items-center justify-center font-anton text-[#171e19]">
+                                02</div>
+                            <div>
+                                <h4 class="font-anton text-2xl text-white mb-2">AI WATCHES JOBS</h4>
+                                <p class="text-[#9f8d8b] text-sm uppercase tracking-widest">Our system monitors
+                                    LinkedIn, Indeed, and more 24/7.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-8">
+                            <div
+                                class="w-10 h-10 rounded-full bg-[#b7c6c2] flex-shrink-0 flex items-center justify-center font-anton text-[#171e19]">
+                                03</div>
+                            <div>
+                                <h4 class="font-anton text-2xl text-white mb-2">AUTO APPLIES</h4>
+                                <p class="text-[#9f8d8b] text-sm uppercase tracking-widest">Instant application with
+                                    tailored resume for matches.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative flex items-center justify-center reveal">
+                    <div class="absolute w-full h-full bg-[#d5f4f9] opacity-5 rounded-full blur-[100px]"></div>
+                    <div class="relative z-10 border border-white/10 p-12 bg-white/5 backdrop-blur-sm">
+                        <div class="flex flex-col gap-6">
+                            <div class="flex justify-between items-center">
+                                <span class="text-[#b7c6c2] font-anton text-lg tracking-widest">AI AGENT STATUS:
+                                    ACTIVE</span>
+                                <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                            </div>
+                            <div class="h-[1px] w-full bg-white/10"></div>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4 text-sm text-white/60">
+                                    <iconify-icon icon="lucide:search" class="text-[#b7c6c2]"></iconify-icon>
+                                    Scanning 12 job boards...
+                                </div>
+                                <div class="flex items-center gap-4 text-sm text-white/60">
+                                    <iconify-icon icon="lucide:check-circle" class="text-green-500"></iconify-icon>
+                                    Match found: Senior UI Designer
+                                </div>
+                                <div class="flex items-center gap-4 text-sm text-white/60">
+                                    <iconify-icon icon="lucide:cpu" class="text-[#b7c6c2]"></iconify-icon>
+                                    Generating tailored resume...
+                                </div>
+                                <div class="flex items-center gap-4 text-sm font-semibold text-white">
+                                    <iconify-icon icon="lucide:send" class="text-[#b7c6c2]"></iconify-icon>
+                                    APPLICATION SENT SUCCESSFULLY
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Preview -->
+        <section class="bg-white py-32 md:py-64 px-8 md:px-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                <div class="relative reveal order-2 lg:order-1">
+                    <div class="absolute -top-12 -left-12 w-64 h-64 bg-[#d5f4f9] opacity-20 z-0"></div>
+                    <div
+                        class="relative z-10 aspect-video bg-gray-100 border border-gray-200 shadow-2xl overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200"
+                            alt="Dashboard Preview"
+                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 custom-transition">
+                    </div>
+                </div>
+                <div class="flex flex-col items-start reveal order-1 lg:order-2">
+                    <span class="font-anton text-[#9f8d8b] text-xl tracking-widest mb-6">YOUR CONTROL CENTER</span>
+                    <h2 class="font-anton text-7xl md:text-8xl leading-tight mb-8 text-[#171e19]">TRACK EVERY
+                        APPLICATION.</h2>
+                    <p class="text-[#9f8d8b] text-xl max-w-lg leading-relaxed mb-12">
+                        Stay in the loop with a real-time feed of every job your AI agent applied to. Review the custom
+                        resumes generated for each role and track your success metrics from one central dashboard.
+                    </p>
+                    <a href="https://draft-06d04218-611c-41c9-a33a-38a4fbdac9cb.preview.superdesign.dev"
+                        id="dashboard-cta"
+                        class="group flex items-center gap-4 text-[#171e19] text-[12px] uppercase tracking-[0.3em] font-bold">
+                        Explore Dashboard
+                        <iconify-icon icon="lucide:arrow-right"
+                            class="text-xl transform group-hover:translate-x-2 transition-transform"></iconify-icon>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="bg-[#fafafa] py-32 md:py-48 px-8 md:px-24">
+            <div class="text-center mb-24 reveal">
+                <h2 class="font-anton text-7xl md:text-8xl text-[#171e19] mb-4">PICK YOUR EDGE</h2>
+                <p class="text-[#9f8d8b] uppercase tracking-[0.3em] text-sm">Automate your future career today.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Starter -->
+                <div class="pricing-card bg-white p-12 border border-gray-100 flex flex-col reveal">
+                    <span class="font-anton text-lg text-[#9f8d8b] mb-4">STARTER</span>
+                    <div class="flex items-end gap-1 mb-8">
+                        <span class="font-anton text-5xl text-[#171e19]">$29</span>
+                        <span class="text-[#9f8d8b] text-sm uppercase font-bold mb-1">/month</span>
+                    </div>
+                    <ul class="space-y-4 mb-12 flex-grow">
+                        <li class="flex items-center gap-3 text-sm text-[#171e19]">
+                            <iconify-icon icon="lucide:check" class="text-[#b7c6c2]"></iconify-icon>
+                            Up to 50 applications / mo
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-[#171e19]">
+                            <iconify-icon icon="lucide:check" class="text-[#b7c6c2]"></iconify-icon>
+                            Basic tailoring
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-[#171e19]">
+                            <iconify-icon icon="lucide:check" class="text-[#b7c6c2]"></iconify-icon>
+                            Daily job reports
+                        </li>
+                    </ul>
+                    <a href="#" id="plan-starter-link"
+                        class="py-4 border border-[#171e19] text-[#171e19] text-center font-anton tracking-widest hover:bg-[#171e19] hover:text-white custom-transition">CHOOSE
+                        PLAN</a>
+                </div>
+
+                <!-- Pro -->
+                <div
+                    class="pricing-card bg-[#171e19] p-12 border border-[#171e19] flex flex-col scale-105 shadow-2xl reveal z-20">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-anton text-lg text-[#b7c6c2]">PRO</span>
+                        <span
+                            class="px-3 py-1 bg-[#b7c6c2] text-[#171e19] text-[10px] uppercase font-bold tracking-tighter">MOST
+                            POPULAR</span>
+                    </div>
+                    <div class="flex items-end gap-1 mb-8">
+                        <span class="font-anton text-5xl text-white">$79</span>
+                        <span class="text-[#9f8d8b] text-sm uppercase font-bold mb-1">/month</span>
+                    </div>
+                    <ul class="space-y-4 mb-12 flex-grow">
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <iconify-icon icon="lucide:check" class="text-[#b7c6c2]"></iconify-icon>
+                            UNLIMITED applications
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <iconify-icon icon="lucide:check" class="text-[#b7c6c2]"></iconify-icon>
+                            Advanced AI tailoring
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <iconify-icon icon="lucide:check" class="text-[#b7c6c2]"></iconify-icon>
+                            Real-time notifications
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <iconify-icon icon="lucide:check" class="text-[#b7c6c2]"></iconify-icon>
+                            Priority dashboard sync
+                        </li>
+                    </ul>
+                    <a href="#" id="plan-pro-link"
+                        class="py-4 bg-[#b7c6c2] text-[#171e19] text-center font-anton tracking-widest hover:bg-white custom-transition">START
+                        FREE TRIAL</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card bg-white p-12 border border-gray-100 flex flex-col reveal">
+                    <span class="font-anton text-lg text-[#9f8d8b] mb-4">ENTERPRISE</span>
+                    <div class="flex items-end gap-1 mb-8">
+                        <span class="font-anton text-5xl text-[#171e19]">CUSTOM</span>
+                    </div>
+                    <ul class="space-y-4 mb-12 flex-grow">
+                        <li class="flex items-center gap-3 text-sm text-[#171e19]">
+                            <iconify-icon icon="lucide:check" class="text-[#b7c6c2]"></iconify-icon>
+                            Everything in Pro
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-[#171e19]">
+                            <iconify-icon icon="lucide:check" class="text-[#b7c6c2]"></iconify-icon>
+                            Dedicated career coach
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-[#171e19]">
+                            <iconify-icon icon="lucide:check" class="text-[#b7c6c2]"></iconify-icon>
+                            API Access
+                        </li>
+                    </ul>
+                    <a href="#" id="plan-enterprise-link"
+                        class="py-4 border border-[#171e19] text-[#171e19] text-center font-anton tracking-widest hover:bg-[#171e19] hover:text-white custom-transition">CONTACT
+                        US</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="bg-[#302b2f] py-32 md:py-64 px-8 md:px-24 overflow-hidden relative">
+            <div
+                class="absolute -top-24 -left-12 font-anton text-[#171e19] text-[30rem] leading-none opacity-30 select-none pointer-events-none">
+                &ldquo;
+            </div>
+            <div class="relative z-10 max-w-6xl mx-auto text-center flex flex-col items-center reveal">
+                <h4 class="font-anton text-4xl md:text-6xl text-white tracking-tighter uppercase leading-none mb-16">
+                    "I GOT 8 INTERVIEW CALLS IN MY FIRST WEEK. THE AI APPLIED TO JOBS I HADN'T EVEN SEEN YET. IT'S LIKE
+                    HAVING A FULL-TIME ASSISTANT WHO NEVER SLEEPS."
+                </h4>
+                <div class="flex flex-col items-center gap-6">
+                    <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-[#b7c6c2]">
+                        <img src="https://i.pravatar.cc/100?u=tech" alt="User" class="w-full h-full object-cover">
+                    </div>
+                    <div class="text-center">
+                        <p class="font-anton text-xl text-[#b7c6c2] tracking-widest">SARAH JENKINS</p>
+                        <p class="text-[#9f8d8b] text-[10px] uppercase tracking-[0.3em] mt-1">SOFTWARE ENGINEER @ FAANG
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="bg-[#171e19] py-32 md:py-48 px-8 md:px-24 text-center overflow-hidden">
+            <div class="relative reveal">
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#d5f4f9] opacity-10 rounded-full blur-[150px]">
+                </div>
+                <h2
+                    class="relative z-10 font-anton text-8xl md:text-[12vw] text-white leading-none tracking-tighter mb-12">
+                    READY TO GET EARLY?</h2>
+                <div class="flex flex-col items-center gap-8">
+                    <a href="https://draft-8e383e35-4787-4efa-8310-00f5bafd5e93.preview.superdesign.dev"
+                        id="final-cta-btn"
+                        class="relative z-10 px-12 py-6 bg-[#b7c6c2] text-[#171e19] font-anton text-2xl tracking-widest hover:bg-white custom-transition">
+                        START YOUR FREE TRIAL
+                    </a>
+                    <p class="relative z-10 text-[#9f8d8b] uppercase tracking-[0.3em] text-xs">JOIN 1,000+ JOB SEEKERS
+                        GETTING HIRED FASTER</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Component -->
+        <!-- component: Footer (a548c73a-1fd1-457f-9535-bfc7c63c5639) -->
+        <div
+            v-scope="{ ...{&quot;emailHref&quot;:&quot;mailto:hello@earlyedge.ai&quot;,&quot;legalHref&quot;:&quot;#&quot;,&quot;privacyHref&quot;:&quot;#&quot;,&quot;instagramHref&quot;:&quot;#instagram&quot;,&quot;isRevealed&quot;:true}, $emit() {} }">
+            <footer class="bg-[#171e19] pt-32 pb-12 px-8 md:px-24">
+                <div class="flex flex-col transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                    :class="isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px]'">
+                    <h2 class="text-[12vw] md:text-[10vw] leading-none tracking-tighter text-white mb-12 uppercase"
+                        style="font-family: 'Anton', sans-serif;">LET'S CREATE.</h2><a :href="emailHref"
+                        class="text-4xl md:text-6xl text-[#b7c6c2] hover:text-white transition-colors underline underline-offset-[16px] decoration-1 decoration-[#b7c6c2]/30 uppercase"
+                        style="font-family: 'Anton', sans-serif;">HELLO@STUDIO-RARE.COM</a>
+                </div>
+                <div
+                    class="mt-48 pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div class="text-[10px] uppercase tracking-[0.4em] text-white/40">© 2024 STUDIO RARE — ALL RIGHTS
+                        RESERVED</div>
+                    <div class="flex gap-12"><a :href="legalHref"
+                            class="text-[10px] uppercase tracking-[0.4em] text-white/40 hover:text-white transition-colors">LEGAL</a><a
+                            :href="privacyHref"
+                            class="text-[10px] uppercase tracking-[0.4em] text-white/40 hover:text-white transition-colors">PRIVACY</a><a
+                            :href="instagramHref"
+                            class="text-[10px] uppercase tracking-[0.4em] text-white/40 hover:text-white transition-colors">INSTAGRAM</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- /component: Footer (a548c73a-1fd1-457f-9535-bfc7c63c5639) -->
+    </div>
+
+    <script>
+        // Reveal on scroll logic
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

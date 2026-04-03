@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap');
+
+:root {
+  --navy: #171e19;
+  --sage: #b7c6c2;
+  --taupe: #9f8d8b;
+  --cyan: #d5f4f9;
+  --soft-blue: #bbe2f5;
+  --charcoal: #302b2f;
+}
+
+.landing-page-wrapper {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--navy);
+  color: white;
+  overflow-x: hidden;
+}
+
+.font-anton {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+
+.text-outline {
+  -webkit-text-stroke: 1px var(--sage);
+  color: transparent;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.custom-transition {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-difference {
+  mix-blend-mode: difference;
+}
+
+.landing-pricing-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-pricing-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.2);
+}
+
+.step-line {
+  height: 1px;
+  background: linear-gradient(to right, var(--sage), transparent);
+  width: 100%;
+}
+
+/* Reset global list-style removal to allow Tailwind list styling */
+.landing-page-wrapper ul,
+.landing-page-wrapper ol {
+  list-style: none;
+}
+
+/* Ensure images display correctly within landing page */
+.landing-page-wrapper img {
+  max-width: 100%;
+  display: block;
+}

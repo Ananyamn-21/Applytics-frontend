@@ -1,0 +1,113 @@
+/* ── Profile Page Styles ── */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+}
+
+.profile-form-card {
+    padding: var(--space-xl);
+}
+
+.profile-form-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-lg);
+}
+
+.profile-user-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.profile-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+/* Resume Section */
+.profile-resume-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.resume-upload-zone {
+    padding: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    border: 2px dashed var(--border-default);
+    transition: all var(--transition-base);
+}
+
+.resume-upload-zone:hover,
+.resume-upload-zone.drag-over {
+    border-color: var(--accent-primary);
+    background: var(--accent-primary-glow);
+}
+
+.upload-icon {
+    font-size: 2rem;
+    color: var(--accent-primary);
+    margin-bottom: var(--space-md);
+}
+
+.resume-upload-zone h4 {
+    margin-bottom: var(--space-xs);
+}
+
+.resume-preview-card {
+    padding: var(--space-lg);
+}
+
+.resume-preview-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+    color: var(--accent-primary-hover);
+}
+
+.resume-text {
+    font-family: 'Inter', monospace;
+    font-size: 0.8125rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: var(--space-md);
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+}
+
+@media (max-width: 768px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}

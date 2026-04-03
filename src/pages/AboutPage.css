@@ -1,0 +1,108 @@
+/* ── About Page Styles ── */
+.about-hero {
+    position: relative;
+    z-index: 10;
+    padding: 160px var(--space-xl) 60px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.about-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+}
+
+.mb-4 {
+    margin-bottom: var(--space-md);
+}
+
+.mt-4 {
+    margin-top: var(--space-md);
+}
+
+.about-content-section {
+    position: relative;
+    z-index: 10;
+    padding: 60px 0 120px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: var(--space-2xl);
+    align-items: start;
+}
+
+.content-text h2 {
+    font-size: 2rem;
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.02em;
+}
+
+.content-text p {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+}
+
+.content-stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.stat-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 800px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .stat-box {
+        flex: 1;
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-stats {
+        flex-direction: column;
+    }
+}

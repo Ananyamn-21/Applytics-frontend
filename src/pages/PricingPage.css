@@ -1,0 +1,19 @@
+.pricing-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+/* Toggle Switch Custom Styling */
+.toggle-checkbox:checked + .toggle-label {
+  background-color: var(--sage);
+}
+.toggle-checkbox:checked + .toggle-label .toggle-dot {
+  transform: translateX(100%);
+}
+
+.faq-item[open] summary iconify-icon {
+  transform: rotate(180deg);
+}

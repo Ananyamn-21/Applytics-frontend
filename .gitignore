@@ -1,3 +1,4 @@
+/api-documentation.md
 /node_modules
-.angular
-
+/dist
+/architecture.md

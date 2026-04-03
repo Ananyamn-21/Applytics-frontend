@@ -1,0 +1,96 @@
+/* ── Platform Accounts Page Styles ── */
+
+.platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--space-lg);
+}
+
+.platform-account-card {
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.pa-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.pa-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.pa-info h3 {
+    font-size: 1.125rem;
+    margin-bottom: 2px;
+}
+
+.pa-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pa-actions {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+/* Platform Selector */
+.platform-selector {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.platform-option {
+    flex: 1;
+    padding: 12px;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    transition: all var(--transition-fast);
+}
+
+.platform-option:hover {
+    border-color: var(--border-strong);
+}
+
+.platform-option.active {
+    border-color: var(--platform-color);
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--text-primary);
+}
+
+.security-note {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+}
+
+@media (max-width: 768px) {
+    .platform-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,137 @@
+/* ── Jobs Page Styles ── */
+
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-md);
+}
+
+.job-card {
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    cursor: pointer;
+}
+
+.job-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+
+.job-platform-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+}
+
+.job-platform-badge.linkedin {
+    background: linear-gradient(135deg, #0a66c2, #0077b5);
+}
+
+.job-platform-badge.naukri {
+    background: linear-gradient(135deg, #3e7cff, #6c5ce7);
+}
+
+.job-card-title {
+    min-width: 0;
+}
+
+.job-card-title h4 {
+    font-size: 0.9375rem;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.job-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+.job-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+}
+
+.job-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+}
+
+/* Job Detail Modal */
+.job-detail-modal {
+    max-width: 600px;
+}
+
+.job-detail-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.job-detail-company {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.job-detail-meta-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+}
+
+.job-detail-meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.job-detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+.job-detail-description h4 {
+    margin-bottom: var(--space-sm);
+    font-size: 0.9375rem;
+}
+
+.job-description-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: var(--space-md);
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .jobs-grid {
+        grid-template-columns: 1fr;
+    }
+}
