@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { platformsAPI } from '../services/api';
 import { FiPlus, FiX, FiLink, FiPause, FiPlay, FiTrash2, FiMail, FiLock, FiActivity } from 'react-icons/fi';
-import { SiLinkedin } from 'react-icons/si';
 import toast from 'react-hot-toast';
 import './PlatformAccountsPage.css';
 
